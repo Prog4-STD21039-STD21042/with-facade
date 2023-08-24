@@ -65,11 +65,12 @@ public class PersistenceMainConfiguration {
 
     @Bean
     @Primary
-    public MigrateResult mainFlywayDataSource() {
-        return Flyway.configure()
+    public Flyway mainFlywayDataSource() {
+        Flyway flyway = Flyway.configure()
                 .dataSource(mainDataSource())
                 .locations("classpath:db/migration/main")
-                .load()
-                .migrate();
+                .load();
+        flyway.migrate();
+        return flyway;
     }
 }

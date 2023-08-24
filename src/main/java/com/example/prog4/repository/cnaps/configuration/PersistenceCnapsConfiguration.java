@@ -60,11 +60,12 @@ public class PersistenceCnapsConfiguration {
     }
 
     @Bean
-    public MigrateResult cnapsFlywayDataSource() {
-        return Flyway.configure()
+    public Flyway cnapsFlywayDataSource() {
+        Flyway flyway = Flyway.configure()
                 .dataSource(cnapsDataSource())
                 .locations("classpath:db/migration/cnaps")
-                .load()
-                .migrate();
+                .load();
+        flyway.migrate();
+        return flyway;
     }
 }
